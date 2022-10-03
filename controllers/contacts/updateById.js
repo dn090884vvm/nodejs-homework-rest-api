@@ -1,12 +1,6 @@
 const contactsOperations = require("../../models/contacts");
-// const Joi = require("joi");
-const createError = require("http-errors");
 
-// const contactSchema = Joi.object({
-//   name: Joi.string().required(),
-//   email: Joi.string().trim().email().required(),
-//   phone: Joi.string().required(),
-// });
+const createError = require("http-errors");
 
 const updateById = async (req, res, next) => {
   const { contactId } = req.params;
