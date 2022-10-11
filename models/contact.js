@@ -1,6 +1,8 @@
 const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 
+// const { handleSchemaValidationsErrors } = require("../middlewares");
+
 const contactSchema = Schema(
   {
     name: { type: String, required: [true, "Set name for contact"] },
@@ -18,6 +20,8 @@ const contactSchema = Schema(
   },
   { versionKey: false, timestamps: true }
 );
+
+// contactSchema.post("save", handleSchemaValidationsErrors);
 
 const joiSchema = Joi.object({
   name: Joi.string().required(),
