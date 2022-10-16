@@ -1,15 +1,19 @@
 const { Schema, model } = require("mongoose");
 const Joi = require("joi");
+// const { handleSchemaValidationsErrors } = require("../middlewares");
+// const handleSchemaValidationsErrors = require("../helpers/handleSchemaValidationErrors");
+const { handleSchemaValidationsErrors } = require("../helpers");
 
 const contactSchema = Schema(
   {
     name: { type: String, required: [true, "Set name for contact"] },
     email: {
       type: String,
+      unique: true,
     },
     phone: {
       type: String,
-      // match:/^/
+      match: /^\+\d{2}\(\d{3}\)\d{3}-\d{2}-\d{2}$/,
     },
     favorite: {
       type: Boolean,
@@ -23,6 +27,8 @@ const contactSchema = Schema(
   },
   { versionKey: false, timestamps: true }
 );
+
+contactSchema.post("save", handleSchemaValidationsErrors);
 
 const joiSchema = Joi.object({
   name: Joi.string().required(),
